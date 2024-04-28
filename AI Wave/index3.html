@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: black;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .login-container {
+            background-color: #fff;
+            border-radius: 5px;
+            padding: 20px;
+            box-shadow: 0 2px 9px rgba(82, 190, 42, 0.929);
+        }
+
+        .login-container h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .login-container input[type="text"],
+        .login-container input[type="password"] {
+            width: 80%;
+            padding: 10px;
+            border-radius: 15px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+        }
+
+        .login-container input[type="submit"] {
+            width: 50%;
+            padding: 10px;
+            border: none;
+            background-color: greenyellow;
+            color: #fff;
+            cursor: pointer;
+            margin-left: 120px;
+            border-radius: 3px;
+            transition: background-color 1s;
+        }
+        span{
+            color: greenyellow;
+        }
+        .login-container input[type="submit"]:hover {
+            background-color: black;
+            color: aliceblue;
+            border-radius: 15px;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <h2><span>Sign in </span> Page</h2>
+        <form id="login-form" onsubmit="return login()">
+            <input type="text" id="username" name="username" placeholder="Username" required>
+            <input type="password" id="password" name="password" placeholder="Password" required>
+            <input type="password" id="password1" name="password" placeholder=" Confirme Password" required>
+            <br>
+            <a href="index.html">You already have an account </a>
+            <br>
+            <p id="ppp" style="color: gray; margin-left: 25px;"></p>
+            <br>
+            <input type="submit" value="Sign in">
+        </form>
+    </div>
+
+    <script>
+        function login() {
+            // You can implement your login logic here
+            // For now, let's assume the login is successful
+            const x1=document.querySelector("#password").value;
+            const x2=document.querySelector("#password1").value;
+            const x3=document.querySelector("#ppp");
+            if (x1!=x2){
+                x3.innerHTML="Password not correct !!"
+            }
+            else{
+                window.location.href = "index.html";
+            }
+            // Redirect to CV upload page
+           
+            return false; // Prevent form submission
+        }
+    </script>
+</body>
+<script src="./test.js" type="module"></script>
+</html>

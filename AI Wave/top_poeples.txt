@@ -1,0 +1,2 @@
+Name: John    Gender:  m    Social Skill:  9    Speciality:  engineer    Score: 820
+Name: John Doe   Gender: M   Social Skill: 8   Speciality: Business Administration   Score: 789

@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CV Upload</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: black;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .container {
+      background-color: #fff;
+      padding: 40px;
+      width: 1000px;
+      height: 500px;
+      border-radius: 8px;
+      box-shadow: 0 2px 9px rgba(82, 190, 42, 0.929);
+      text-align: center;
+    }
+
+    h1 {
+      margin-bottom: 20px;
+      font-size: 24px;
+      color: #333;
+    }
+
+    #folderInput {
+      display: none;
+    }
+
+    label {
+      display: inline-block;
+      margin-left: 15px;
+      background-color: rgb(41, 31, 71);
+      color: white;
+      padding: 15px 30px;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      font-size: 16px;
+      margin-bottom: 20px;
+    }
+
+    label:hover {
+        background-color: black;
+      color: aliceblue;
+    }
+
+    button[type="submit"] {
+      background-color: rgb(41, 31, 71);
+      color: white;
+      padding: 15px 30px;
+      border: none;
+      border-radius: 5px;
+      margin-top: 10px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      font-size: 16px;
+    }
+
+    button:hover {
+      background-color: black;
+      color: aliceblue;
+    }
+    button {
+      background-color: rgb(41, 31, 71);
+      color: white;
+      padding: 15px 30px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      font-size: 16px;
+    }
+select{
+    margin-left: 15px;
+    width: 120px;
+    height: 50px;
+    background-color: rgb(41, 31, 71);
+    color: aliceblue;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+}
+select:focus{
+    margin-left: 15px;
+    width: 120px;
+    height: 50px;
+    background-color: black;
+    color: aliceblue;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+}
+    button[type="submit"]:hover {
+      background-color: black;
+      color: aliceblue;
+    }
+    #message {
+      margin-top: 20px;
+      font-size: 14px;
+      color: #666;
+    }
+    .form{
+      position: relative;
+      right: 350px;
+    }
+    .contastant{
+      position: relative;
+      left: 750px;
+      bottom: 300px;
+      
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1 style="position: relative; right: 350px;"  >Upload Your CV</h1>
+    <form id="cv-form" class="form">
+      <label for="folderInput">Select Folder</label>
+      <input type="file" id="folderInput" webkitdirectory directory multiple style="display:none;">
+      <select name="top" id="top">
+        <option value="1">top 1</option>
+        <option value="3">top 3</option>
+        <option value="5">top 5</option>
+        <option value="10">top 10</option>
+      </select>
+      <br>
+      <input type="radio" name="gender" id="gender">Male
+      <input type="radio"name="gender"id="gender">Femmale
+      <br><br>
+      <input type="radio"name="a2"id="a2">Social Skill abouve 5
+      <input type="radio"name="a2"id="a2">Social Skill less then 5
+      <br><br>
+      <!-- <input type="radio"name="a3"id="a3">
+      <input type="radio"name="a3"id="a3">6
+      <br><br>
+      <input type="radio"name="a4"id="a4">7
+      <input type="radio"name="a4"id="a4">8
+      <br><br> -->
+      <button type="submit">Submit CV</button>
+      <br>
+      <div class="contastant">
+        <ul id="ul" style="width: 600px; ">
+
+        </ul>
+      </div>
+    </form>
+   
+  </div>
+
+  <script>
+    document.getElementById('cv-form').addEventListener('submit', function(event) {
+      event.preventDefault(); // Prevent default form submission
+
+      const folderInput = document.getElementById('folderInput');
+      const folders = folderInput.files;
+
+      if (folders.length === 0) {
+        showMessage("Please select a folder to upload.");
+        return;
+      }
+
+      // Create a FormData object
+      const formData = new FormData();
+      for (let i = 0; i < folders.length; i++) {
+        formData.append('cv[]', folders[i]);
+      }
+
+      // Send the folder(s) to the server
+      fetch('/upload', {
+        method: 'POST',
+        body: formData
+      })
+      .then(response => response.json())
+      .then(data => {
+        // Handle the response from the server
+        if (data.success) {
+          showMessage("CV uploaded successfully. AI processing in progress.");
+          // You can do further processing with the response data if needed
+        } else {
+          showMessage("CV upload failed. Please try again later.");
+        }
+      })
+      .catch(error => {
+        console.error('Error:', error);
+        showMessage("An error occurred while uploading the CV.");
+      });
+    });
+
+    function showMessage(message) {
+      document.getElementById('message').textContent = message;
+    }
+
+  </script>
+  
+</body>
+<script src="./test.js" type="module"></script>
+</html>
